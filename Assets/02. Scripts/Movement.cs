@@ -43,9 +43,12 @@ public class Movement : MonoBehaviour
         float v = Input.GetAxis("Vertical"); // Z 축
         
         Vector3 dir = new Vector3(h,0,v); // new Vector3(X,Y,Z);
+        Vector3 normaldir = dir.normalized; // 대각이동시 속도값이 1 보다 커지는 것을 방지하기 위한 정규화 과정 ( 0 ~ 1 )
 
-        Debug.Log($"현제 입력 : {dir}");
-        this.gameObject.transform.position += dir * (Power * Time.deltaTime);
+        // Debug.Log($"현제 입력 : {normaldir}");
+        this.gameObject.transform.position += normaldir * (Power * Time.deltaTime);
         
+        // transform.LookAt(Vector3 바라볼 좌표, Vector3 회전하는 방향);
+        this.gameObject.transform.LookAt(transform.position + normaldir); // 오브젝트 바라보게 하는 함수
     }
 }

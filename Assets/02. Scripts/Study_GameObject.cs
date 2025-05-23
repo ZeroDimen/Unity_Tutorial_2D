@@ -9,7 +9,7 @@ public class Study_GameObject : MonoBehaviour
     
     public Vector3 Pos;
     public Quaternion Rot;
-    private void Start()
+    private void Awake() // Start 함수보다 빨리 호출됨
     {
         CreateMonster("Monster", 2);
     }
