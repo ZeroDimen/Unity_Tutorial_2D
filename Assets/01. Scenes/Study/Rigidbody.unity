@@ -153,11 +153,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &882736082
@@ -541,7 +541,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446642884}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 49d88a664d00cdb4b99f955ecc456365, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -690,7 +690,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685665533}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 49d88a664d00cdb4b99f955ecc456365, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -839,7 +839,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141957104}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 49d88a664d00cdb4b99f955ecc456365, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
