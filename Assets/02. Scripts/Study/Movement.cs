@@ -4,7 +4,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float Power;
-    
+
+    public static int Coin_Count = 0; // 정적변수(static)을 사용하면 다른 스크립트에서도 쉽게 접근 가능
     void Update()
     {
         /*  this. 생략 가능, 가독성을 위해 권장함
