@@ -1,9 +1,10 @@
 using UnityEngine;
 
 // Animator를 사용한 문 오브젝트 슬라이드 이동 구현
-public class Door_Event2 : MonoBehaviour
+public class Door_Slide_Event : MonoBehaviour
 {
     private Animator anim;
+    public GameObject KeyPad;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class Door_Event2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            anim.SetTrigger("IsFront");
+            KeyPad.SetActive(true);
+            // anim.SetTrigger("IsFront");
         }
     }
 
@@ -22,7 +24,8 @@ public class Door_Event2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            anim.SetTrigger("IsClose");
+            KeyPad.SetActive(false);
+            // anim.SetTrigger("IsClose");
         }
     }
 }

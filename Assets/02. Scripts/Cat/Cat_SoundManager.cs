@@ -33,6 +33,11 @@ namespace  Cat
             audioSource.Play(); // 시작
             Debug.Log("VAR");
         }
+
+        public void Set_GameOver_Sound()
+        {
+            audioSource.Stop();
+        }
         public void OnJumpSound() // 점프 효과음 출력함수
         {
             // PlayOneShot(AudioClip.name) 한번 출력, 임시로 사용, 제어 불가 (클립을 매개변수로 사용)
