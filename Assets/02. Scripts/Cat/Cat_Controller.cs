@@ -33,6 +33,11 @@ public class Cat_Controller : MonoBehaviour
             Cat_Anim.SetBool("IsGround", false); // 점프 에니메이션 출력
             soundManager.OnJumpSound();
         }
+
+        // 점프시 고양이의 Rotion 변경
+        var catRotion = transform.eulerAngles;
+        catRotion.z = Cat_Rb.linearVelocityY * 2.5f;
+        transform.eulerAngles = catRotion;
     }
 
     private void FixedUpdate()

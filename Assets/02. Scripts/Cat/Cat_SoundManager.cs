@@ -31,7 +31,6 @@ namespace  Cat
         {
             audioSource.clip = Bgm_Game_Clip;
             audioSource.Play(); // 시작
-            Debug.Log("VAR");
         }
 
         public void Set_GameOver_Sound()

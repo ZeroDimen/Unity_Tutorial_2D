@@ -15,22 +15,29 @@ namespace Cat
 
         public Button startButton;
 
-        private void Start()
+        // private void Start()
+        // {
+        //     // 버튼 오브젝트에 스크립트를 통한 OnClick() 추가
+        //     startButton.onClick.AddListener(OnStartButton);
+        // }
+
+        private void FixedUpdate() // 빈칸 입력이나 기본입력을 방지하기 위함
         {
-            // 버튼 오브젝트에 스크립트를 통한 OnClick() 추가
-            startButton.onClick.AddListener(OnStartButton);
+            // if (inputField.text is "" or "고양이 이름을 정해주세요")
+            if (inputField.text == "" || inputField.text == "고양이 이름을 정해주세요")
+            {
+                startButton.interactable = false;
+            }
+            else
+            {
+                startButton.interactable = true;
+            }
         }
-        
+
         public void OnStartButton()
         {
-            if (inputField.text.Length > 0)
-            {
-                Debug.Log("입력한 텍스트 없음");
-                return;
-            }
             Play_Obj.SetActive(true);
             Intro_Obj.SetActive(false);
-            Debug.Log($"{nameTextUI} 입력");
             nameTextUI.text = inputField.text;
         }
     }
