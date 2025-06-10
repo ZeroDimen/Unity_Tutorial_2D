@@ -9,6 +9,7 @@ namespace  Cat
         public AudioClip Bgm_Intro_Clip;
         public AudioClip Bgm_Game_Clip;
         public AudioClip Jump_Clip;
+        public AudioClip Collider_Clip;
 
         private void Start()
         {
@@ -41,6 +42,11 @@ namespace  Cat
         {
             // PlayOneShot(AudioClip.name) 한번 출력, 임시로 사용, 제어 불가 (클립을 매개변수로 사용)
             audioSource.PlayOneShot(Jump_Clip); // 설정 변경 불가 
+        }
+
+        public void Oncollider() // 아이탬 획득시 효과음 출력함수
+        {
+            audioSource.PlayOneShot(Collider_Clip);
         }
     }
 }

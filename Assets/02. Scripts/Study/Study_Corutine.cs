@@ -7,18 +7,20 @@ public class Study_Corutine : MonoBehaviour
 {
     public Image image;
     
-    public float fadeTime = 2f;
-
-    public bool isFadeIn = false;
     private void Start()
     {
         // StartCoroutine("CorutineA");
         // StartCoroutine(CorutineA());
         // Invoke("Stopmethod", 3f);
-        StartCoroutine(Fade_Out_Image());
+        
     }
-    
-    IEnumerator Fade_In_Image()
+
+    public void OnFade(float fadeTime ,Color c)
+    {
+        StartCoroutine(Fade_Image(fadeTime ,c));
+    }
+
+    IEnumerator Fade_Image(float fadeTime, Color c)
     {
         float timer = 0f;
         float percent = 0f;
@@ -27,38 +29,7 @@ public class Study_Corutine : MonoBehaviour
         {
             timer += Time.deltaTime; 
             percent = timer / fadeTime; // fade 퍼센트
-            image.color = new Color(image.color.r, image.color.g, image.color.b, percent);
-            yield return null;
-        }
-        
-    }
-    
-    IEnumerator Fade_Out_Image()
-    {
-        float timer = 0f;
-        float percent = 0f;
-        
-        while (percent <= 1f)
-        {
-            timer += Time.deltaTime; 
-            percent = timer / fadeTime; // fade 퍼센트
-            image.color = new Color(image.color.r, image.color.g, image.color.b, 1 - percent);
-            yield return null;
-        }
-        
-    }
-    
-    IEnumerator Fade_InOut_Image()
-    {
-        float timer = 0f;
-        float percent = 0f;
-        
-        float value = isFadeIn ? percent : 1 - percent;
-        while (percent <= 1f)
-        {
-            timer += Time.deltaTime; 
-            percent = timer / fadeTime; // fade 퍼센트
-            image.color = new Color(image.color.r, image.color.g, image.color.b, value);
+            image.color = new Color(c.r, c.g, c.b,  percent);
             yield return null;
         }
         

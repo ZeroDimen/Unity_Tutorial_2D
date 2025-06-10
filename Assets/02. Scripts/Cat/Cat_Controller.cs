@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Cat; // 사운드 메니저가 있는 namespace
 
@@ -5,15 +6,14 @@ using Cat; // 사운드 메니저가 있는 namespace
 public class Cat_Controller : MonoBehaviour
 {
     public Cat_SoundManager soundManager; // public으로 설정 했기 때문에 유니티 상에서 할당 예정
-
+    public Cat_UIManager uiManager;
+    
     private Rigidbody2D Cat_Rb;
     private Animator Cat_Anim;
     public float Cat_Speed;
     public float Cat_JumpForce;
     private float h;
     public int Cat_Jumpcount; // 현재 점프 수
-
-    private bool IsGround;
 
     void Start()
     {
@@ -25,13 +25,13 @@ public class Cat_Controller : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && Cat_Jumpcount < 2) // 스페이스 키 입력하면 실행, 연속 점프 기능
+        if (Input.GetKeyDown(KeyCode.Space) && Cat_Jumpcount < 1) // 스페이스 키 입력하면 실행, 연속 점프 기능
         {
             // AddForceY(Float 속도, Mode)
             Cat_Rb.AddForceY(Cat_JumpForce, ForceMode2D.Impulse);
             Cat_Jumpcount++;
-            Cat_Anim.SetBool("IsGround", false); // 점프 에니메이션 출력
             soundManager.OnJumpSound();
+            Cat_Anim.SetBool("IsGround", false); // 점프 에니메이션 출력 , 자연스러운 낙하는 아님 개선 필요
         }
 
         // 점프시 고양이의 Rotion 변경
@@ -44,15 +44,36 @@ public class Cat_Controller : MonoBehaviour
     {
         Cat_Rb.linearVelocityX = h * Cat_Speed;
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground")) // 바닥 충돌시
         {
             Cat_Jumpcount = 0;
             Cat_Anim.SetBool("IsGround", true); // 걷기 에니메이션 출력
-
         }
+        else if (collision.gameObject.CompareTag("Pipe"))  // 파이프 충돌시
+        {
+            soundManager.Oncollider();
+            
+            uiManager.Ending("SadEnding");
+        }
+    }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Fruit")) // 과일과 닿았을 경우
+        {
+            other.gameObject.SetActive(false);
+            // Fruit의 부모 오브젝트 컴포넌트에서 particle 오브젝트를 가져와서 활성화
+            other.transform.parent.GetComponent<Cat_ItemEvent>().particle.SetActive(true); // 사라진 효과 출력
+            Cat_GameManager.Score ++;
+            soundManager.Oncollider();
+
+            if (Cat_GameManager.Score == 10)
+            {
+                uiManager.Ending("HappyEnding");
+            }
+        }
     }
 }
