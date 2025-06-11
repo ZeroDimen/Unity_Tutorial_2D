@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Cat; // 사운드 메니저가 있는 namespace
 
@@ -56,7 +55,7 @@ public class Cat_Controller : MonoBehaviour
         {
             soundManager.Oncollider();
             
-            uiManager.Ending("SadEnding");
+            uiManager.Ending(false);
         }
     }
 
@@ -72,7 +71,7 @@ public class Cat_Controller : MonoBehaviour
 
             if (Cat_GameManager.Score == 10)
             {
-                uiManager.Ending("HappyEnding");
+                uiManager.Ending(true);
             }
         }
     }
