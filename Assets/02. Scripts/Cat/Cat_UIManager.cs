@@ -13,12 +13,14 @@ namespace Cat
         
         public GameObject cat;
         
-        public GameObject Play_Obj;
-        public GameObject Intro_Obj;
+        public GameObject play_Obj;
+        public GameObject intro_UI;
+        public GameObject outtro_UI;
         
-        public GameObject Play_UI;
-        public GameObject GameoverUI;
-        public GameObject FadeUI;
+        public GameObject score_UI;
+        public GameObject gameoverUI;
+        public GameObject fadeUI;
+        public GameObject videoPlayUI;
         
         public TMP_InputField inputField;
         public TextMeshProUGUI nameTextUI;
@@ -27,11 +29,19 @@ namespace Cat
 
         private void Awake()
         {
-            Play_Obj.SetActive(false);
-            Intro_Obj.SetActive(true);
-            Play_UI.SetActive(false);
+            Init();
         }
 
+        private void Init()
+        {
+            Cat_GameManager.DataInit(); // Score, Time 초기화하는 함수
+            
+            play_Obj.SetActive(false);
+            intro_UI.SetActive(true);
+            score_UI.SetActive(false);
+            outtro_UI.SetActive(false);
+            videoPlayUI.SetActive(false);
+        }
         private void FixedUpdate() // 빈칸 입력이나 기본입력을 방지하기 위함
         {
             // if (inputField.text is "" or "고양이 이름을 정해주세요")
@@ -47,29 +57,34 @@ namespace Cat
 
         public void OnStartButton()
         {
-            Play_Obj.SetActive(true);
-            Play_UI.SetActive(true);
-            
-            Intro_Obj.SetActive(false);
+            Init();
+            play_Obj.SetActive(true);
+            score_UI.SetActive(true);
+            intro_UI.SetActive(false);
             nameTextUI.text = inputField.text;
             Cat_GameManager.isPlay = true;
+            soundManager.audioSource.Play();
         }
         
         public void Ending(bool isHappy)
         {
-            FadeUI.SetActive(true);
-            Play_UI.SetActive(false);
-            cat.GetComponent<BoxCollider2D>().enabled = false; // 콜라이더 비활성화
+            outtro_UI.SetActive(true);
+            fadeUI.SetActive(true);
+            Cat_Controller.isEnding = true;
+            
+            cat.GetComponent<CircleCollider2D>().enabled = false; // 콜라이더 비활성화
         
+            Color color = isHappy ? Color.white : Color.black;
+            
             if (isHappy)
             {
-                FadeUI.GetComponent<Study_Corutine>().OnFade(3f, Color.white);
+                fadeUI.GetComponent<Cat_UIFade>().OnFade(3f, color);
             }
             else
             {
             
-                GameoverUI.SetActive(true);
-                FadeUI.GetComponent<Study_Corutine>().OnFade(3f, Color.black);
+                gameoverUI.SetActive(true);
+                fadeUI.GetComponent<Cat_UIFade>().OnFade(3f, color);
             }
             
             // Invoke("Video(Ending)",5f); Invoke로는 호출하는 함수에게 매개변수를 넘겨줄수없음
@@ -91,9 +106,10 @@ namespace Cat
             }
             
             // yield return new WaitUntil(()=> videoManager.videoPlayer.isPlaying); // 람다식
-            FadeUI.SetActive(false);
-            GameoverUI.SetActive(false);
-            soundManager.audioSource.mute = true;
+            score_UI.SetActive(false);
+            fadeUI.SetActive(false);
+            gameoverUI.SetActive(false);
+            soundManager.audioSource.Stop();
         }
     }
 }

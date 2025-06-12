@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // 코인 오브젝트 획득 및 제거
-public class Coin : MonoBehaviour
+public class Door_Coin : MonoBehaviour
 {
     
     private void OnTriggerEnter(Collider other)

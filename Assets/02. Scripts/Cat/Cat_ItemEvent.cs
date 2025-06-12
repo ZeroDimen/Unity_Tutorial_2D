@@ -17,9 +17,15 @@ public class Cat_ItemEvent : MonoBehaviour
     public float ReturnPosX = 15f;
     public float Random_PosY;
 
-    private void Start()
+    private Vector3 initPos;
+    private void Awake()
     {
-        SetRandomSetting(transform.position.x);
+        initPos = transform.localPosition;
+    }
+    
+    private void OnEnable()
+    {
+        SetRandomSetting(initPos.x);
     }
 
     private void Update()
