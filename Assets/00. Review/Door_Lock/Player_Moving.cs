@@ -3,17 +3,14 @@ using UnityEngine;
 public class Player_Moving : MonoBehaviour
 {
     public float moveSpeed;
-    void Update()
+    void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float moveX  = Input.GetAxis("Horizontal");
+        float moveY  = Input.GetAxis("Vertical");
+
+        Vector3 movement = (transform.forward * moveY + transform.right * moveX).normalized;
+        Vector3 normaldir = movement.normalized;
         
-        Vector3 dir = new Vector3(h,0,v);
-        Vector3 normaldir = dir.normalized;
-        // this.gameObject.transform.localPosition += normaldir * (moveSpeed * Time.deltaTime);
-        this.gameObject.transform.Translate(Vector3.forward);
-        
-        // this.gameObject.transform.LookAt(transform.localPosition + normaldir);
-        // this.gameObject.transform.Translate(Vector3.right * (h * Time.deltaTime));
+        transform.position += normaldir * (moveSpeed * Time.deltaTime);
     }
 }
