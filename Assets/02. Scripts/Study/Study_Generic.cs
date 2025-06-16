@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Generic을 사용하기 위한 타입 <T> 함수를 구현한 스크립트
-
+// ex) GetComponent<T>() , Boxing,Unboxing 대체 가능
 public class Study_Generic : MonoBehaviour
 {
     private void Start()

@@ -14,30 +14,30 @@ public class Study_Casting : MonoBehaviour
 
     private void OOP()
     {
-        Orc o = new Orc();
-        Goblin g = new Goblin();
-        
-        // Down Casting 
-        // 문제가 생길 가능성이 있음
-        // ex) Monster가 가진 함수가 Orc 가 가지고 있지 않아 문제가 생길수 있음
-        Monster m = new Monster();
-        Orc o2 = (Orc)m;
-        
-
-        Debug.Log(o2);
-        
-        // Up Casting 
-        // 명시적 형변환
-        Monster m1 =(Monster) o;
-        Monster m2 =(Monster) g;
-
-        Orc o3 = m as Orc; // 성공시 형변환, 실패시 null
-        bool isMonster = o is Monster; // true
-        
-        
-        // 암시적 형변환
-        monsters.Add(o);
-        monsters.Add(g);
+        // Orc o = new Orc();
+        // Goblin g = new Goblin();
+        //
+        // // Down Casting 
+        // // 문제가 생길 가능성이 있음
+        // // ex) Monster가 가진 함수가 Orc 가 가지고 있지 않아 문제가 생길수 있음
+        // Monster m = new Monster();
+        // Orc o2 = (Orc)m;
+        //
+        //
+        // Debug.Log(o2);
+        //
+        // // Up Casting 
+        // // 명시적 형변환
+        // Monster m1 =(Monster) o;
+        // Monster m2 =(Monster) g;
+        //
+        // Orc o3 = m as Orc; // 성공시 형변환, 실패시 null
+        // bool isMonster = o is Monster; // true
+        //
+        //
+        // // 암시적 형변환
+        // monsters.Add(o);
+        // monsters.Add(g);
     }
 
     private void casting()

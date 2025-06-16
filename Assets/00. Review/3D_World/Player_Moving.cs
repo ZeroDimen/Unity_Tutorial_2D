@@ -1,0 +1,40 @@
+using UnityEngine;
+
+// 플레이어를 물리적으로 이동시키는 스크립트
+public class Player_Moving : MonoBehaviour
+{
+    private float moveX; // 키보드로 가로로 이동하기 위한 변수
+    private float moveY; // 키보드로 세로로 이동하기 위한 변수
+    
+    public float moveSpeed; // 플레이어의 이동속도
+    public float jumpForce; // 플레이어의 점프힘
+
+    private Rigidbody player_RB;
+    
+    private void Awake()
+    {
+        player_RB = this.GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        moveX  = Input.GetAxis("Horizontal");
+        moveY  = Input.GetAxis("Vertical");
+        Jump();
+    }
+    
+    private void FixedUpdate()
+    {
+        Vector3 movement = (transform.forward * moveY + transform.right * moveX).normalized;
+        Vector3 normaldir = movement.normalized;
+        transform.position += normaldir * (moveSpeed);
+    }
+    
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player_RB.AddForce(Vector3.up * (jumpForce * Time.deltaTime), ForceMode.Impulse);
+        }
+    }
+}
