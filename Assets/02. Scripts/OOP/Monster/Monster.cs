@@ -1,24 +1,54 @@
+using System;
 using UnityEngine;
 
+public abstract class Monster : MonoBehaviour
+{ 
+    private SpriteRenderer sRenderer;
+    protected float hp = 3f;
+    protected float moveSpeed = 3f;
 
-public abstract class Monster :MonoBehaviour, IDamageable // 추상 클래스
-{
-    public float hp; 
-    
-    // 몬스터 마다 체력이 다르므로 필수로 재설정하는 함수가 필요함 따라서 abstract 사용
-    public abstract void SetHealth(); // 추상함수 (직접적으로 사용불가능)
-    public void TakeDamage(float damage)
+    public int dir = 1;
+    public abstract void Init();
+
+    private void Start()
     {
-        Debug.Log($"{damage}만큼 피해를 입었습니다.");
+        sRenderer = GetComponent<SpriteRenderer>();
+        Init();
+    }
+
+    private void OnMouseDown()
+    {
+        Hit(1);
+    }
+
+    private void Update()
+    {
+        Move();
+    }
+
+    void Move()
+    {
+        transform.position += Vector3.right * (dir * moveSpeed * Time.deltaTime);
+
+        if (transform.position.x > 8f)
+        {
+            sRenderer.flipX = true;
+            dir = -1;
+        }
+        else if (transform.position.x < -8f)
+        {
+            sRenderer.flipX = false;
+            dir = 1;
+        }
+    }
+
+    void Hit(float damage)
+    {
         hp -= damage;
         if (hp <= 0)
         {
-            Death();
+            Debug.Log("Monster Dead");
+            Destroy(this.gameObject);
         }
-    }
-    
-    public void Death()
-    {
-        Debug.Log("몬스터 다운.");
     }
 }

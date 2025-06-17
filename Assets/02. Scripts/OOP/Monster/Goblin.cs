@@ -1,8 +1,10 @@
-// Study_Casting 스크립트에서 형변환을 위해 사용됨
+using UnityEngine;
+
 public class Goblin : Monster
 {
-    public override void SetHealth()
+    public override void Init()
     {
-        hp = 30f;
+        hp = 3f;
+        moveSpeed = 3f;
     }
 }

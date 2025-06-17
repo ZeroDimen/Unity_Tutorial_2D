@@ -26,15 +26,15 @@ public class Player_Moving : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movement = (transform.forward * moveY + transform.right * moveX).normalized;
-        Vector3 normaldir = movement.normalized;
-        transform.position += normaldir * (moveSpeed);
+        player_RB.linearVelocity = new Vector3(movement.x * moveSpeed, player_RB.linearVelocity.y, movement.z * moveSpeed);
+        // player_RB.linearVelocity = movement * moveSpeed;
     }
     
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            player_RB.AddForce(Vector3.up * (jumpForce * Time.deltaTime), ForceMode.Impulse);
+            player_RB.AddForce(Vector3.up * jumpForce , ForceMode.Impulse);
         }
     }
 }

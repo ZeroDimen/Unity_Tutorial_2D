@@ -5,34 +5,35 @@ using UnityEngine;
 public abstract class Charactor : MonoBehaviour
 {
     public IDropItem curruntItem ;
+    [SerializeField] private Transform GrabpPos;
     
     public float hp;
     public float moveSpeed;
 
     private void Update()
     {
+        Interaction();
+    }
+
+    private void Interaction()
+    {
+        if (curruntItem == null)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (curruntItem != null)
             {
                 curruntItem.Use();
             }
-            else
-            {
-                Debug.Log("현재 아이템이 없습니다.");
-            }
-            
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetMouseButtonDown(1))
         {
             if (curruntItem != null)
             {
                 curruntItem.Drop();
                 curruntItem = null;
-            }
-            else
-            {
-                Debug.Log("현재 아이템이 없습니다.");
             }
         }
     }
@@ -55,11 +56,11 @@ public abstract class Charactor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 감지된 대상이 IDropItem이 있다면
-        if (other.GetComponent<IDropItem>() != null)
+        // 감지된 대상이 IDropItem이 있다면 , 아이템 2가지 이상 소지 불가
+        if (other.GetComponent<IDropItem>() != null && curruntItem == null)
         {
             IDropItem item = other.GetComponent<IDropItem>();
-            item.Grab(); // 아이템 획득
+            item.Grab(GrabpPos); // 아이템 획득
             curruntItem = item; // 현제 아이템 장착
         }
     }
