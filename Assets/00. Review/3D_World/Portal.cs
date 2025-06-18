@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Portal : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class Portal : MonoBehaviour
 
     private void Start()
     {
-        numPad_Canvas = this.gameObject.transform.GetChild(0).gameObject;
+        numPad_Canvas = gameObject.transform.GetChild(0).gameObject;
     }
 
     public void OnTriggerEnter(Collider other)
