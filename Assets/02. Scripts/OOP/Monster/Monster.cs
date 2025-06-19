@@ -60,7 +60,7 @@ public abstract class Monster : MonoBehaviour
         
     }
 
-    IEnumerator Hit(float damage) // IEnumerator는 yield가 반드시 필요
+    public IEnumerator Hit(float damage) // IEnumerator는 yield가 반드시 필요
     {
         if (!isHit)
         {
@@ -78,8 +78,6 @@ public abstract class Monster : MonoBehaviour
                 
                 Destroy(gameObject); // 비용이 높으므로 오브젝트를 끄는 방법 추천
                 // gameObject.SetActive(false);
-                
-                Debug.Log("Monster Dead");
                 yield break;
             }
             yield return new WaitForSeconds(0.7f);

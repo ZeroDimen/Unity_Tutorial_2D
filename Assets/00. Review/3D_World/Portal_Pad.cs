@@ -10,24 +10,39 @@ public class Portal_Pad : MonoBehaviour
     
     [SerializeField]
     private RawImage cctvImage;
+    
     [SerializeField]
-    private RenderTexture[] cctvTextures;
+    private Camera[] cctvCameras;
+
+    private bool isWarp;
+    private Camera camera;
+    public Transform Player; // 개선 해야할지도
     
     public void OnEnable()
     {
         tpString.text = $"TP : None";
         inputNum = "";
+        isWarp = false;
     }
 
     public void CCTV(int touchNum)
     {
-        if (touchNum > 0 && touchNum < cctvTextures.Length)
+        if (touchNum > 0 && touchNum <= cctvCameras.Length)
         {
-            cctvImage.texture = cctvTextures[touchNum - 1];
+            if (!isWarp) // 같은 번호 2번 입력시 위치이동
+            {
+                cctvImage.texture = cctvCameras[touchNum - 1].targetTexture;
+                isWarp = true;
+            }
+            else
+            {
+                Player.position =  cctvCameras[touchNum - 1].transform.position;
+            }
         }
         else
         {
             Debug.Log("CCTV ERROR");
+            isWarp = false;
         }
     }
 

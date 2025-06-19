@@ -1,96 +1,88 @@
+using System.Collections;
 using UnityEngine;
 
 // 캐릭터 오브젝트를 이동하기 위한 스크립트
 public class Character_Movement : MonoBehaviour
 {
-    private Rigidbody2D Character_Rb;
-    public float Movement_Speed;
-    public float Jump_Power;
-    private bool isGrounded;
-    private float h;
-    public SpriteRenderer[] Character_Ani_SpriteRenderer;
+    private Animator animator;
+
+    [SerializeField] private GameObject hitBox;
+    [SerializeField] private float moveSpeed;
+    private float h, v;
+
+    private bool IsAttack = false;
     private void Start()
     {
-        Character_Rb = this.gameObject.GetComponent<Rigidbody2D>();
-        
-        // 자식 오브젝트의 SpriteRenderer를 가지는 자식들을 가져옴, true 사용시 비활성화 된 오브젝트 또한 가져올 수 있음
-        Character_Ani_SpriteRenderer = GetComponentsInChildren<SpriteRenderer>(true);
+        animator = GetComponent<Animator>();
     }
 
-    private void Update() // 키 입력
-    {
-        h = Input.GetAxis("Horizontal");
-        Jump();
-    }
-
-    private void FixedUpdate() // 물리적 처리 연산
+    private void Update()
     {
         Move();
+        Attack();
     }
 
-    private void Move()
+    void Move()
     {
-        if (h != 0) // 움직일 때
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+
+        if (h == 0 && v == 0) // 움직이지않는 상태 -> Idle animation
         {
-            if (isGrounded)
-            {
-                Character_Ani_SpriteRenderer[0].gameObject.SetActive(false); // Idle
-                Character_Ani_SpriteRenderer[1].gameObject.SetActive(true); // Run
-                Character_Ani_SpriteRenderer[2].gameObject.SetActive(false); // Jump
-            }
-            else
-            {
-                Character_Ani_SpriteRenderer[0].gameObject.SetActive(false); // Idle
-                Character_Ani_SpriteRenderer[1].gameObject.SetActive(false); // Run
-                Character_Ani_SpriteRenderer[2].gameObject.SetActive(true); // Jump
-            }
-            
-            
-            Character_Rb.linearVelocityX = h * Movement_Speed; // rigidbody 이동
-            // 캐릭터의 움직임에 따라 이미지의 Flip 상태가 변하는 기능
-            if (h < 0) // 왼쪽으로 갈때
-            {
-                Character_Ani_SpriteRenderer[0].flipX = true;
-                Character_Ani_SpriteRenderer[1].flipX = true;
-                Character_Ani_SpriteRenderer[2].flipX = true;
-            }
-            else if (h > 0) // 오른쪽으로 갈때
-            {
-                Character_Ani_SpriteRenderer[0].flipX = false;
-                Character_Ani_SpriteRenderer[1].flipX = false;
-                Character_Ani_SpriteRenderer[2].flipX = false;
-            }
-            
+            animator.SetBool("IsRun", false);
         }
-        else // 움직이지 않을 때
+        else // 움직이는 상태 -> Run animation
         {
-            Character_Ani_SpriteRenderer[0].gameObject.SetActive(true); // Idle
-            Character_Ani_SpriteRenderer[1].gameObject.SetActive(false); // Run
-            Character_Ani_SpriteRenderer[2].gameObject.SetActive(false); // Jump
+            if (h > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (h < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            animator.SetBool("IsRun", true);
+        }
+        
+        var dir = new Vector3(h, v, 0).normalized;
+        transform.position += dir * (moveSpeed * Time.deltaTime);
+    }
+
+    void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && IsAttack == false)
+        {
+            StartCoroutine(HitBox());
         }
     }
 
-    private void Jump() // 캐릭터가 +Y 방향으로 점프하는 기능
+    IEnumerator HitBox()
     {
-        if (Input.GetButtonDown("Jump")) // Input.GetKeyDown(KeyCode.Space) 와 같음
+        IsAttack = true;
+        hitBox.SetActive(true);
+        
+        yield return new WaitForSeconds(0.25f);
+        hitBox.SetActive(false);
+        
+        yield return new WaitForSeconds(0.75f);
+        IsAttack = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<Monster>() != null) // Monster컴포넌트가 있다면
         {
-            Character_Rb.AddForce(Vector3.up*Jump_Power, ForceMode2D.Impulse);
+            Monster monster = other.GetComponent<Monster>();
+            StartCoroutine(monster.Hit(1));
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other) // 바로 GetComponent를 사용할수 없음
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.GetComponent<IItem>() != null) // Monster컴포넌트가 있다면
         {
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
+            IItem item = other.gameObject.GetComponent<IItem>();
+            item.Get();
         }
     }
 }
