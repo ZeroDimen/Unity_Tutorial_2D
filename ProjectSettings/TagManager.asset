@@ -10,6 +10,7 @@ TagManager:
   - Score_50
   - Fruit
   - Pipe
+  - Coin
   layers:
   - Default
   - TransparentFX

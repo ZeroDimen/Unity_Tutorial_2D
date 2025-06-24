@@ -75,7 +75,7 @@ public class KnightController_Keyboard : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            knightAni.SetBool("Ground",true);
+            knightAni.SetBool("isGround",true);
             isGround = true;
             
         }

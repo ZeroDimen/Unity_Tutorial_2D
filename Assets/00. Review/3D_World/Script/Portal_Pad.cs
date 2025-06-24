@@ -10,9 +10,8 @@ public class Portal_Pad : MonoBehaviour
     
     [SerializeField]
     private RawImage cctvImage;
-    
-    [SerializeField]
-    private Camera[] cctvCameras;
+
+    [SerializeField] private GameObject[] Zone_Number;
 
     private bool isWarp;
     private Camera camera;
@@ -27,16 +26,18 @@ public class Portal_Pad : MonoBehaviour
 
     public void CCTV(int touchNum)
     {
-        if (touchNum > 0 && touchNum <= cctvCameras.Length)
+        if (touchNum <= Zone_Number.Length)
         {
+            Camera camera = Zone_Number[touchNum].GetComponentInChildren<Camera>();;
+            
             if (!isWarp) // 같은 번호 2번 입력시 위치이동
             {
-                cctvImage.texture = cctvCameras[touchNum - 1].targetTexture;
+                cctvImage.texture = camera.targetTexture;
                 isWarp = true;
             }
             else
             {
-                Player.position =  cctvCameras[touchNum - 1].transform.position;
+                Player.position =  camera.transform.position;
             }
         }
         else

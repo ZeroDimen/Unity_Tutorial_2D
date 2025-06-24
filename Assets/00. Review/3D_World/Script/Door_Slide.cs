@@ -13,7 +13,6 @@ public class Door_Slide : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             door_Anim.SetTrigger("IsOpen");
-            Debug.Log("IsOpen");
         }
 
         
@@ -23,7 +22,6 @@ public class Door_Slide : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             door_Anim.SetTrigger("IsClose");
-            Debug.Log("IsClose");
         }
     }
 }

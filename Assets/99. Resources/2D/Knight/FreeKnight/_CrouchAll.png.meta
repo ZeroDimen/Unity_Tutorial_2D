@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f8c80fb01b2662241a197b16bb143109
+guid: 1f942b01bcae2574c84663e07253faf8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _Fall_0
+      name: _CrouchAll_0
       rect:
         serializedVersion: 2
         x: 0
@@ -138,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 062bc65e1e2db8647a64435a85ce67d1
-      internalID: 547769466
+      spriteID: 51e264f74d646464da42a0c9f37f2ba5
+      internalID: -60192125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Fall_1
+      name: _CrouchAll_1
       rect:
         serializedVersion: 2
         x: 120
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f026926a894075f418bcad592a7184b2
-      internalID: -1393162716
+      spriteID: 7120303db24fca541afe0ec743d2d2fd
+      internalID: -465659367
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Fall_2
+      name: _CrouchAll_2
       rect:
         serializedVersion: 2
         x: 240
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c5518c488050a540a3e435d9c02b10e
-      internalID: -1319392852
+      spriteID: 35adcbd5f7280904faf0ad5cec294b23
+      internalID: 920933525
       vertices: []
       indices: 
       edges: []
@@ -192,7 +192,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 586c271e73825a141b0af07dd8401a62
+    spriteID: d72c04346e3da3c47ba537933e250dc0
     internalID: 0
     vertices: []
     indices: 
@@ -202,9 +202,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      _Fall_0: 547769466
-      _Fall_1: -1393162716
-      _Fall_2: -1319392852
+      _CrouchAll_0: -60192125
+      _CrouchAll_1: -465659367
+      _CrouchAll_2: 920933525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

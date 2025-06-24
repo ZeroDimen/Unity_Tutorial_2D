@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f8c80fb01b2662241a197b16bb143109
+guid: ec18d924158e9ec4e99c80d122f2420e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _Fall_0
+      name: _Attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -138,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 062bc65e1e2db8647a64435a85ce67d1
-      internalID: 547769466
+      spriteID: 5d20a212098eb504fbe998d6aca4c78c
+      internalID: 71284352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Fall_1
+      name: _Attack_1
       rect:
         serializedVersion: 2
         x: 120
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f026926a894075f418bcad592a7184b2
-      internalID: -1393162716
+      spriteID: 57b4adb79e8ae2d49abd9a4c3c4e6d12
+      internalID: 1105429150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _Fall_2
+      name: _Attack_2
       rect:
         serializedVersion: 2
         x: 240
@@ -182,8 +182,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c5518c488050a540a3e435d9c02b10e
-      internalID: -1319392852
+      spriteID: f821b2829a8916f43be089f9b1269324
+      internalID: 703924998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: _Attack_3
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 120
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c700d4105ebd75a49ba6b76ad7d4f11c
+      internalID: -1299021631
       vertices: []
       indices: 
       edges: []
@@ -192,7 +214,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 586c271e73825a141b0af07dd8401a62
+    spriteID: 791f105a263525149a6b0714ceb2c064
     internalID: 0
     vertices: []
     indices: 
@@ -202,9 +224,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      _Fall_0: 547769466
-      _Fall_1: -1393162716
-      _Fall_2: -1319392852
+      _Attack_0: 71284352
+      _Attack_1: 1105429150
+      _Attack_2: 703924998
+      _Attack_3: -1299021631
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
