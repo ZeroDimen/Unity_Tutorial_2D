@@ -573,12 +573,12 @@ GameObject:
   - component: {fileID: 130959895}
   - component: {fileID: 130959896}
   m_Layer: 0
-  m_Name: Item (2)
+  m_Name: '[Pipe] 3'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &130959895
 Transform:
   m_ObjectHideFlags: 0
@@ -937,12 +937,12 @@ GameObject:
   - component: {fileID: 171630174}
   - component: {fileID: 171630175}
   m_Layer: 0
-  m_Name: Item (3)
+  m_Name: '[Pipe] 4'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &171630174
 Transform:
   m_ObjectHideFlags: 0
@@ -4484,12 +4484,12 @@ GameObject:
   - component: {fileID: 1435810568}
   - component: {fileID: 1435810569}
   m_Layer: 0
-  m_Name: Item (1)
+  m_Name: '[Pipe] 2'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1435810568
 Transform:
   m_ObjectHideFlags: 0
@@ -4648,12 +4648,12 @@ GameObject:
   - component: {fileID: 1521467651}
   - component: {fileID: 1521467652}
   m_Layer: 0
-  m_Name: Item
+  m_Name: '[Pipe] 1'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1521467651
 Transform:
   m_ObjectHideFlags: 0

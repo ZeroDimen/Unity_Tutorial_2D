@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &205725948
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04c00b118eee3b4a901d15cd7178a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cat_Trans: {fileID: 0}
+  Cat_Trans: {fileID: 1783150064}
   Cat_Safe_Rotation: 0.2
   Cat_Speed: 4
   Cat_J_force: 7

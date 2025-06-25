@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,19 +15,42 @@ public class Portal_Pad : MonoBehaviour
     private bool isWarp;
     private Camera camera;
     public Transform Player; // 개선 해야할지도
+    public static string Zone_name;
+    private int currentZone;
     
-    public void OnEnable()
+    public void Start()
     {
-        tpString.text = $"TP : None";
+        Zone_name = "EErrr";
         inputNum = "";
         isWarp = false;
+        Get_Zone_Number();
+        Get_CCTV(currentZone);
+        tpString.text = $"Teleport \n Zone {currentZone} -> Zone ";
     }
 
-    public void CCTV(int touchNum)
+    private void Get_Zone_Number()
+    {
+        Debug.Log(Zone_name);
+        string str_Zone = Zone_name.Replace("Zone_", "");
+        currentZone = int.Parse(str_Zone);
+        bool result = int.TryParse(str_Zone , out currentZone);
+        if (result == false)
+        {
+            Debug.Log($"Portal_Pad Err : input {Zone_name}");
+        }
+    }
+
+    private void Get_CCTV(int Zone_Num)
+    {
+        camera = Zone_Number[Zone_Num].GetComponentInChildren<Camera>();;
+        cctvImage.texture = camera.targetTexture;
+    }
+
+    private void CCTV(int touchNum)
     {
         if (touchNum <= Zone_Number.Length)
         {
-            Camera camera = Zone_Number[touchNum].GetComponentInChildren<Camera>();;
+            camera = Zone_Number[touchNum].GetComponentInChildren<Camera>();;
             
             if (!isWarp) // 같은 번호 2번 입력시 위치이동
             {
@@ -47,13 +69,13 @@ public class Portal_Pad : MonoBehaviour
         }
     }
 
-    public void TouchnumPad(string numString) // numPad에서 버튼 입력시 호출 되는 함수
+    private void TouchnumPad(string numString) // numPad에서 버튼 입력시 호출 되는 함수
     {
         if (numString == "Enter") // Enter 버튼 입력시
         {
             if (inputNum != "")
             {
-                CCTV(int.Parse(inputNum));
+                // CCTV(int.Parse(inputNum));
                 inputNum = "";
             }
         }
@@ -70,7 +92,7 @@ public class Portal_Pad : MonoBehaviour
             }
         }
         
-        tpString.text = $"TP : {inputNum}";
+        tpString.text = $"Teleport \n Zone {currentZone} -> Zone {inputNum}";
     }
 }
 

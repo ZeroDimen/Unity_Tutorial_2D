@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,12 +29,7 @@ public class KnightController_Joystick : MonoBehaviour
         jumpButton.onClick.AddListener(Jump);
         attackButton.onClick.AddListener(Attack);
     }
-
-    private void Update() // 일반적인 작업
-    {
-        
-    }
-
+    
     private void FixedUpdate() // 물리적인 작업
     {
         Move();
@@ -97,6 +93,13 @@ public class KnightController_Joystick : MonoBehaviour
         }
     }
 
+    public void EndCombo()
+    {
+        isCombo = false;
+        isAttack = false;
+        knightAni.SetBool("isCombo", false);
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
@@ -113,6 +116,16 @@ public class KnightController_Joystick : MonoBehaviour
         {
             knightAni.SetBool("isGround", false);
             isGround = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        // 부모오브젝트가 움직이지않으면 자식오브젝트의 충돌이 한번만 실행됨 수정필요
+        //  -> 몬스터 오브젝트에 Rigidbody sleeping Mode 수정으로 해결가능
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            Debug.Log("Attack");
         }
     }
 }

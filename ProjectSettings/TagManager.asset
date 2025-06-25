@@ -11,6 +11,7 @@ TagManager:
   - Fruit
   - Pipe
   - Coin
+  - Monster
   layers:
   - Default
   - TransparentFX
