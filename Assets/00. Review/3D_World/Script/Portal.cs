@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour
 
     private void Start()
     {
-        numPad_Canvas = GameObject.Find("TPManager").gameObject.transform.GetChild(0).gameObject;
+        numPad_Canvas = GameObject.Find("TPManager").gameObject.transform.GetChild(0).gameObject; // 수정해야할지도? FindWithTag?
     }
 
     public void OnTriggerEnter(Collider other)
@@ -15,11 +15,9 @@ public class Portal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Player_MouseLook.ViewCursor(true);
-            Debug.Log(Portal_Pad.Zone_name);
             string currentZone = this.gameObject.transform.parent.name;
             numPad_Canvas.SetActive(true);
-
-            Debug.Log(this.gameObject.transform.parent.name);
+            
             Portal_Pad.Zone_name = currentZone;
         }
     }

@@ -14,10 +14,10 @@ public class Cat_UIFade : MonoBehaviour // UIManager에서 처리하는게 좋�
 
     public void OnFade(float fadeTime ,Color c)
     {
-        StartCoroutine(Fade_Image(fadeTime ,c));
+        StartCoroutine(Fade_Image(fadeTime ,c, true));
     }
 
-    IEnumerator Fade_Image(float fadeTime, Color c)
+    public IEnumerator Fade_Image(float fadeTime, Color c , bool isFade) // Knight 씬에서도 사용하기위해 public
     {
         float timer = 0f;
         float percent = 0f;
@@ -26,7 +26,10 @@ public class Cat_UIFade : MonoBehaviour // UIManager에서 처리하는게 좋�
         {
             timer += Time.deltaTime; 
             percent = timer / fadeTime; // fade 퍼센트
-            image.color = new Color(c.r, c.g, c.b,  percent);
+
+            float value = isFade ? percent : 1 - percent;
+            
+            image.color = new Color(c.r, c.g, c.b,  value);
             yield return null;
         }
     }

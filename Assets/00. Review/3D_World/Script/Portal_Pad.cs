@@ -20,7 +20,6 @@ public class Portal_Pad : MonoBehaviour
     
     public void Start()
     {
-        Zone_name = "EErrr";
         inputNum = "";
         isWarp = false;
         Get_Zone_Number();
@@ -30,7 +29,6 @@ public class Portal_Pad : MonoBehaviour
 
     private void Get_Zone_Number()
     {
-        Debug.Log(Zone_name);
         string str_Zone = Zone_name.Replace("Zone_", "");
         currentZone = int.Parse(str_Zone);
         bool result = int.TryParse(str_Zone , out currentZone);
@@ -42,8 +40,16 @@ public class Portal_Pad : MonoBehaviour
 
     private void Get_CCTV(int Zone_Num)
     {
-        camera = Zone_Number[Zone_Num].GetComponentInChildren<Camera>();;
-        cctvImage.texture = camera.targetTexture;
+        if (Zone_Num <= Zone_Number.Length)
+        {
+            camera = Zone_Number[Zone_Num].GetComponentInChildren<Camera>();;
+            cctvImage.texture = camera.targetTexture;
+            isWarp = true;
+        }
+        else
+        {
+            Debug.Log("Zone Number out of range");
+        }
     }
 
     private void CCTV(int touchNum)
@@ -73,11 +79,7 @@ public class Portal_Pad : MonoBehaviour
     {
         if (numString == "Enter") // Enter 버튼 입력시
         {
-            if (inputNum != "")
-            {
-                // CCTV(int.Parse(inputNum));
-                inputNum = "";
-            }
+            // Get_CCTV();
         }
         else if (numString == "Delete") // Delete 버튼 입력시
         {

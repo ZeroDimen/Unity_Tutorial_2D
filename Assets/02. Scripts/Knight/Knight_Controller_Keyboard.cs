@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class KnightController_Keyboard : MonoBehaviour
+public class Knight_Controller_Keyboard : MonoBehaviour
 {
 
     private Animator knightAni;

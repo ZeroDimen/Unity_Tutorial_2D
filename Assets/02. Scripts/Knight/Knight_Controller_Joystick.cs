@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KnightController_Joystick : MonoBehaviour
+public class Knight_Controller_Joystick : MonoBehaviour
 {
 
     private Animator knightAni;

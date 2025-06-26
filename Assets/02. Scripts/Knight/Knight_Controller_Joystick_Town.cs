@@ -1,0 +1,98 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Knight_Controller_Joystick_Town : MonoBehaviour
+{
+
+    private Animator knightAni;
+    private Rigidbody2D knightRb;
+    
+    [SerializeField] private Button attackButton;
+    
+    private Vector3 inputDir;
+    [SerializeField]
+    private float moveSpeed = 3f;
+    
+    private bool isCombo = false;
+    private bool isAttack = false;
+    
+    private void Start()
+    {
+        knightAni = GetComponent<Animator>();
+        knightRb = GetComponent<Rigidbody2D>();
+        
+        attackButton.onClick.AddListener(Attack);
+    }
+    
+    private void FixedUpdate() // 물리적인 작업
+    {
+        Move();
+    }
+    
+    public void InputJoystick(float x, float y)
+    {
+        inputDir = new Vector3(x, y, 0).normalized;
+        
+        knightAni.SetFloat("joystickX", inputDir.x);
+        knightAni.SetFloat("joystickY", inputDir.y);
+
+        if (inputDir.x != 0)
+        {
+            var scaleX = inputDir.x > 0 ? 1 : -1;
+            transform.localScale = new Vector3(scaleX,1,1);
+        }
+    }
+
+    private void Move()
+    {
+        if (inputDir.x != 0)
+        {
+            knightRb.linearVelocity = inputDir * moveSpeed; // transfrom을 사용한 이동은 벽을 관통할 가능성이 있음
+        }
+    }
+
+    private void Attack()
+    {
+        if (isAttack)
+        {
+            isCombo = true;
+        }
+        else
+        {
+            isAttack = true;
+            knightAni.SetTrigger("attack");
+        }
+        
+    }
+
+    private void CheckCombo()
+    {
+        if (isCombo)
+        {
+            knightAni.SetBool("isCombo", true);
+        }
+        else
+        {
+            knightAni.SetBool("isCombo", false);
+            isAttack = false;
+        }
+    }
+
+    public void EndCombo()
+    {
+        isCombo = false;
+        isAttack = false;
+        knightAni.SetBool("isCombo", false);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        // 부모오브젝트가 움직이지않으면 자식오브젝트의 충돌이 한번만 실행됨 수정필요
+        //  -> 몬스터 오브젝트에 Rigidbody sleeping Mode 수정으로 해결가능
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            Debug.Log("Attack");
+        }
+    }
+}
