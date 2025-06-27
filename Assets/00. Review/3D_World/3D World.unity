@@ -1609,7 +1609,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: ab932db906123a74c9b5e4c743040d2b, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 1033b95afcdf05c4389df2c51fa1d896, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2802,6 +2802,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tpString: {fileID: 334053566}
   cctvImage: {fileID: 12281020}
+  numPad:
+  - {fileID: 2021268731}
+  - {fileID: 443743745}
+  - {fileID: 300292069}
+  - {fileID: 639932938}
+  - {fileID: 1597143402}
+  - {fileID: 144517177}
+  - {fileID: 244957945}
+  - {fileID: 712651315}
+  - {fileID: 1721130061}
+  - {fileID: 616175117}
   Zone_Number:
   - {fileID: 1743092160}
   - {fileID: 327632734}
@@ -3561,7 +3572,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: ab932db906123a74c9b5e4c743040d2b, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 5669e06a5de815945a262b496ce2aa41, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1

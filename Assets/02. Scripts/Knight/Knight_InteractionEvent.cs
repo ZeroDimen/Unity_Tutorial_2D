@@ -3,19 +3,27 @@ using UnityEngine;
 
 public class Knight_InteractionEvent : MonoBehaviour
 {
-    public enum InteractionType { SIGN, DOOR, NPC}
+    public enum InteractionType
+    {
+        SIGN,
+        DOOR,
+        NPC
+    }
+
     public InteractionType type;
     public Cat_UIFade fadeUI;
-    
+
     public GameObject signPopup;
     public GameObject map;
     public GameObject house;
+
+    public Knight_SoundManager soundManager;
 
     [SerializeField] private Vector2 inHousePos;
     [SerializeField] private Vector2 outHousePos;
 
     private bool isInHouse;
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -24,7 +32,7 @@ public class Knight_InteractionEvent : MonoBehaviour
         }
 
     }
-    
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -51,19 +59,20 @@ public class Knight_InteractionEvent : MonoBehaviour
 
     IEnumerator DoorRoutine(Transform player)
     {
-        yield return StartCoroutine(fadeUI.Fade_Image(3f, Color.black ,true));;
-        
-       player.position = isInHouse ? outHousePos : inHousePos;
-       
+        soundManager.EventsoundPlay("Door Open SFX");
+        yield return StartCoroutine(fadeUI.Fade_Image(2f, Color.black, true));
+    
+        player.position = isInHouse ? outHousePos : inHousePos;
+
         map.SetActive(isInHouse);
         house.SetActive(!isInHouse);
-        
+
         isInHouse = !isInHouse;
-        
+
         yield return new WaitForSeconds(1f);
-        
-        yield return StartCoroutine(fadeUI.Fade_Image(3f, Color.black , false));;
-        
+
+        soundManager.EventsoundPlay("Door Close SFX");
+        yield return StartCoroutine(fadeUI.Fade_Image(2f, Color.black, false));
     }
 
 }
