@@ -12,6 +12,7 @@ TagManager:
   - Pipe
   - Coin
   - Monster
+  - Ladder
   layers:
   - Default
   - TransparentFX

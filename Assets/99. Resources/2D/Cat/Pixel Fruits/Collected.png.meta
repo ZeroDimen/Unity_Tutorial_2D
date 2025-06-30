@@ -5,7 +5,7 @@ AssetOrigin:
   productId: 155360
   packageName: Pixel Adventure 1
   packageVersion: 1.0
-  assetPath: Assets/Pixel Adventure 1/Assets/Items/Fruits/Collected.png
+  assetPath: Assets/99. Resources/2D/Cat/Pixel Fruits/Collected.png
   uploadId: 332803
 TextureImporter:
   internalIDToNameTable:
@@ -73,7 +73,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -273,7 +273,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a97844c5c50823a4b884a2364d5e4c70
+      spriteID: 0dd54906e5c0da841bc10f831037af33
       internalID: 2831489644526101201
       vertices: []
       indices: 

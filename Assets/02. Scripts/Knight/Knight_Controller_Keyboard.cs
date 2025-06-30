@@ -11,9 +11,10 @@ public class Knight_Controller_Keyboard : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpPower = 12f;
 
-    private bool isGround = false;
-    private bool isCombo = false;
-    private bool isAttack = false;
+    private bool isGround;
+    private bool isCombo;
+    private bool isAttack;
+    private bool isLadder;
 
     private void Start()
     {
@@ -42,6 +43,11 @@ public class Knight_Controller_Keyboard : MonoBehaviour
 
         knightAni.SetFloat("inputDirX", inputDir.x);
         knightAni.SetFloat("inputDirY", inputDir.y);
+
+        if (inputDir.y < 0)
+            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 0.3f);
+        else if (inputDir.y > 0)
+            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 0.3f);
     }
 
     private void Jump()
@@ -63,6 +69,11 @@ public class Knight_Controller_Keyboard : MonoBehaviour
             transform.localScale = new Vector3(scaleX, 1, 1);
 
             knightRb.linearVelocityX = inputDir.x * moveSpeed; // transfrom을 사용한 이동은 벽을 관통할 가능성이 있음
+        }
+
+        if (isLadder)
+        {
+            knightRb.linearVelocityY = inputDir.y * moveSpeed;
         }
     }
     
@@ -119,6 +130,25 @@ public class Knight_Controller_Keyboard : MonoBehaviour
         {
             knightAni.SetBool("isGround", false);
             isGround = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            isLadder = true;
+            knightRb.gravityScale = 0;
+            knightRb.linearVelocity = Vector2.zero;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            knightRb.gravityScale = 5;
+            knightRb.linearVelocity = Vector2.zero;
         }
     }
 }
