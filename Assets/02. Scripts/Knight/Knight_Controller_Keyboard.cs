@@ -45,9 +45,17 @@ public class Knight_Controller_Keyboard : MonoBehaviour
         knightAni.SetFloat("inputDirY", inputDir.y);
 
         if (inputDir.y < 0)
-            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 0.3f);
-        else if (inputDir.y > 0)
-            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 0.3f);
+        {
+            GetComponent<CapsuleCollider2D>().size = new Vector2(1f, 1f);
+            GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.3f, 0.5f);
+        }
+            
+        else if (inputDir.y >= 0)
+        {
+            GetComponent<CapsuleCollider2D>().size = new Vector2(1f, 2f);
+            GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.3f, 1f);
+        }
+            
     }
 
     private void Jump()

@@ -19,6 +19,7 @@ public class Knight_SoundManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject); // Scene 전환시 유지
         bgmVolume.value = bgmAudioSource.volume;
         sfxVolume.value = sfxAudioSource.volume;
         
