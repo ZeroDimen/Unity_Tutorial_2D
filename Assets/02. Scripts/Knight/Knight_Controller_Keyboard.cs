@@ -1,16 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Knight_Controller_Keyboard : MonoBehaviour
+public class Knight_Controller_Keyboard : MonoBehaviour, IDamageable
 {
 
     private Animator knightAni;
     private Rigidbody2D knightRb;
+    private CapsuleCollider2D knightCol;
+    [SerializeField] private Image hpBar;
 
     private Vector3 inputDir;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpPower = 12f;
-
+    
+    private float knight_MaxHP = 20f;
+    private float knight_CurrentHP;
+    private float knight_Damage = 5f;
+    
     private bool isGround;
     private bool isCombo;
     private bool isAttack;
@@ -20,6 +27,9 @@ public class Knight_Controller_Keyboard : MonoBehaviour
     {
         knightAni = GetComponent<Animator>();
         knightRb = GetComponent<Rigidbody2D>();
+
+        knight_CurrentHP = knight_MaxHP;
+        hpBar.fillAmount = knight_CurrentHP / knight_MaxHP;
     }
 
     private void Update() // 일반적인 작업
@@ -143,6 +153,14 @@ public class Knight_Controller_Keyboard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Monster"))
+        {
+            if (other.GetComponent<IDamageable>() != null)
+            {
+                other.GetComponent<IDamageable>().TakeDamage(knight_Damage);
+            }
+        }
+
         if (other.gameObject.CompareTag("Ladder"))
         {
             isLadder = true;
@@ -158,5 +176,23 @@ public class Knight_Controller_Keyboard : MonoBehaviour
             knightRb.gravityScale = 5;
             knightRb.linearVelocity = Vector2.zero;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        knight_CurrentHP -= damage;
+        hpBar.fillAmount = knight_CurrentHP / knight_MaxHP;
+        
+        if (knight_CurrentHP <= 0f)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        knightAni.SetTrigger("Death");
+        knightRb.gravityScale = 0;
+        knightCol.enabled = false;
     }
 }

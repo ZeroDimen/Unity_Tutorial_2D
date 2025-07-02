@@ -3,24 +3,68 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Goblin : Knight_MonsterCore
+public class Goblin : Knight_MonsterCore, IDamageable
 {
     
     private float timer;
     private float patrolTime , idleTime;
-    private float traceDist = 6f;
-    private float attackDist = 2.5f;
+    private float traceDist = 4f;
+    private float attackDist = 2f;
     private bool isAttack;
     
     private void Start()
     {
-        Init(10f, 2f , 1f);
+        Init(10f, 2f , 0.7f, 3f);
     }
 
-    protected override void Init(float hp, float speed, float attackTime)
+    protected override void Init(float maxHp, float speed, float attackTime, float attackDamage)
     {
-        base.Init(hp, speed, attackTime);
-        // 추가기능
+        base.Init(maxHp, speed, attackTime, attackDamage);
+        StartCoroutine(FindPlayerRoutine());
+    }
+
+    IEnumerator FindPlayerRoutine()
+    {
+        while (true)
+        {
+            yield return null;
+            targetDist = Vector3.Distance(transform.position, target.position);
+
+            if (monsterstate == MonsterState.IDLE || monsterstate == MonsterState.PATROL)
+            {
+                Vector3 monsterDir = Vector3.right * moveDir;
+                Vector3 playerDir = (transform.position - target.position).normalized;
+            
+                float dotValue = Vector3.Dot(monsterDir, playerDir);
+            
+                isTrace = dotValue < -0.5f && dotValue >= -1f; // 서로 마주보고 있으면 -1, 뒤돌고 있으면 1
+                
+                if (targetDist  <= traceDist && isTrace)
+                {
+                    timer = 0f;
+                    monster_Ani.SetBool("isRun", true);
+                    ChangeState(MonsterState.TRACE);
+                }
+            }
+            else if (monsterstate == MonsterState.TRACE)
+            {
+                if (targetDist > traceDist)
+                {
+                    timer = 0f;
+                    idleTime =Random.Range(1f, 3f);
+                    
+                    monster_Ani.SetBool("isRun", false);
+                    ChangeState(MonsterState.IDLE);
+                }
+        
+                if (targetDist < attackDist)
+                {
+                    ChangeState(MonsterState.ATTACK);
+                }
+            }
+        }
+        
+        
     }
 
     public override void Idle()
@@ -38,12 +82,7 @@ public class Goblin : Knight_MonsterCore
             ChangeState(MonsterState.PATROL);
         }
 
-        if (targetDist  <= traceDist && isTrace)
-        {
-            timer = 0f;
-            monster_Ani.SetBool("isRun", true);
-            ChangeState(MonsterState.TRACE);
-        }
+       
         
     }
 
@@ -68,18 +107,8 @@ public class Goblin : Knight_MonsterCore
         transform.position += Vector3.right * (tartgetDir.x * speed * Time.deltaTime);
 
         var scaleX = tartgetDir.x > 0 ? 1 : -1;
-       
         transform.localScale = new Vector3(scaleX, 1, 1);
-        if (targetDist > traceDist)
-        {
-            monster_Ani.SetBool("isRun", false);
-            ChangeState(MonsterState.IDLE);
-        }
-        
-        if (targetDist < attackDist)
-        {
-            ChangeState(MonsterState.ATTACK);
-        }
+        hpBar.transform.localScale = new Vector3(scaleX, 1, 1);
     }
 
     public override void Attack()
@@ -93,14 +122,41 @@ public class Goblin : Knight_MonsterCore
     IEnumerator AttackRoutine()
     {
         isAttack = true;
-        monster_Ani.SetBool("isRun", false);
         monster_Ani.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
+        float currAniLength = monster_Ani.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(currAniLength);
         
-        
+        monster_Ani.SetBool("isRun", false);
+        var targetDir = (target.position - transform.position).normalized;
+        var scaleX = targetDir.x > 0 ? 1 : -1;
+        transform.localScale = new Vector3(scaleX, 1, 1);
+        hpBar.transform.localScale = new Vector3(scaleX, 1, 1);
         yield return new WaitForSeconds(attackTime);
+        
         isAttack = false;
-        ChangeState(MonsterState.IDLE);
+        monster_Ani.SetBool("isRun", true);
+        ChangeState(MonsterState.TRACE);
     }
-    
+
+    public void TakeDamage(float damage)
+    {
+        currentHp -= damage;
+        hpBar.fillAmount = currentHp / maxHp;
+        
+        monster_Ani.SetTrigger("Hit");
+        
+        if (currentHp <= 0f)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        isDead = true;
+        monster_Ani.SetTrigger("Death");
+        monster_Rb.gravityScale = 0;
+        monster_Coll.enabled = false;
+        itemManager.DropItem(transform.position);
+    }
 }

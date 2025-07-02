@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3152349826239953776}
   - component: {fileID: 7432817892769813423}
   - component: {fileID: 3123838230078941385}
+  - component: {fileID: -5868882631967096469}
   m_Layer: 10
   m_Name: HeartRed
   m_TagString: Untagged
@@ -103,7 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionType: 1
-  price: 0
 --- !u!58 &7432817892769813423
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -167,3 +167,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5868882631967096469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159294589647715929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ad2c5119921f042baf44a74546b343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

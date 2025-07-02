@@ -1,11 +1,14 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Knight_MonsterCore : MonoBehaviour
 {
     public enum MonsterState {IDLE , PATROL, TRACE, ATTACK}
     public MonsterState monsterstate = MonsterState.IDLE;
-
+    
+    public Knight_ItemManager itemManager;
+    
+    [SerializeField] protected Image hpBar;
     
     protected Animator monster_Ani;
     protected Rigidbody2D monster_Rb;
@@ -13,35 +16,41 @@ public abstract class Knight_MonsterCore : MonoBehaviour
     
     public Transform target;
     
-    public float hp;
+    public float maxHp;
+    public float currentHp;
     public float speed;
     protected float moveDir;
     protected float targetDist;
     protected float attackTime;
+    public float attackDamage;
 
     protected bool isTrace;
+    protected bool isDead;
     
-    protected virtual void Init(float hp, float speed, float attackTime) 
+    protected virtual void Init(float maxHp, float speed, float attackTime, float attackDamage) 
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        this.hp = hp;
+        monster_Rb = GetComponent<Rigidbody2D>();
+        monster_Coll = GetComponent<Collider2D>();
+        
+        itemManager =FindObjectOfType<Knight_ItemManager>();
+        
+        this.maxHp = maxHp;
         this.speed = speed;
         this.attackTime = attackTime;
+        this.attackDamage = attackDamage;
+
+        currentHp = maxHp;
         
         monster_Ani = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        targetDist = Vector3.Distance(transform.position, target.position);
-        
-        Vector3 monsterDir = Vector3.right * moveDir;
-        Vector3 playDir = (transform.position - target.position).normalized;
-
-        float dotValue = Vector3.Dot(monsterDir, playDir);
-
-        isTrace = dotValue < -0.5f && dotValue >= -1f; // 서로 마주보고 있으면 -1, 뒤돌고 있으면 1
-        
+        if (isDead)
+        {
+            return;
+        }
         switch (monsterstate)
         {
             case MonsterState.IDLE: // 대기 상태
@@ -66,6 +75,12 @@ public abstract class Knight_MonsterCore : MonoBehaviour
             moveDir *= -1;
             transform.localScale = new Vector3(moveDir, 1f, 1f);
         }
+
+        if (other.GetComponent<IDamageable>() != null)
+        {
+            Debug.Log("Att");
+            other.GetComponent<IDamageable>().TakeDamage(attackDamage);
+        }
     }
 
     public abstract void Idle();
@@ -75,9 +90,6 @@ public abstract class Knight_MonsterCore : MonoBehaviour
 
     public void ChangeState(MonsterState newstate) // 디버깅, 유지보수에 유리함
     {
-        if (monsterstate != newstate)
-        {
-            monsterstate = newstate;
-        }
+        monsterstate = newstate;
     }
 }
