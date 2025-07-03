@@ -137,26 +137,4 @@ public class Goblin : Knight_MonsterCore, IDamageable
         monster_Ani.SetBool("isRun", true);
         ChangeState(MonsterState.TRACE);
     }
-
-    public void TakeDamage(float damage)
-    {
-        currentHp -= damage;
-        hpBar.fillAmount = currentHp / maxHp;
-        
-        monster_Ani.SetTrigger("Hit");
-        
-        if (currentHp <= 0f)
-        {
-            Death();
-        }
-    }
-
-    public void Death()
-    {
-        isDead = true;
-        monster_Ani.SetTrigger("Death");
-        monster_Rb.gravityScale = 0;
-        monster_Coll.enabled = false;
-        itemManager.DropItem(transform.position);
-    }
 }

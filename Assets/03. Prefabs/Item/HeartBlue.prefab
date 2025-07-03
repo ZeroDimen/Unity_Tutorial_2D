@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -1200465619807608679}
   - component: {fileID: -5824312142043977521}
   - component: {fileID: 489403726134663868}
+  - component: {fileID: -889129008372004563}
   m_Layer: 10
   m_Name: HeartBlue
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7376417873490615349}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e5792b0ca4f44e8876a7d83e8fcaa96, type: 3}
   m_Name: 
@@ -166,3 +167,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-889129008372004563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376417873490615349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ad2c5119921f042baf44a74546b343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

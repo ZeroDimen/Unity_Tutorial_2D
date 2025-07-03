@@ -164,7 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterstate: 0
-  hpBar: {fileID: 0}
+  itemManager: {fileID: 0}
+  hpBar: {fileID: 5551422151873569307}
   target: {fileID: 0}
   maxHp: 0
   currentHp: 0

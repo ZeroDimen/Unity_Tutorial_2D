@@ -78,7 +78,6 @@ public abstract class Knight_MonsterCore : MonoBehaviour
 
         if (other.GetComponent<IDamageable>() != null)
         {
-            Debug.Log("Att");
             other.GetComponent<IDamageable>().TakeDamage(attackDamage);
         }
     }
@@ -91,5 +90,34 @@ public abstract class Knight_MonsterCore : MonoBehaviour
     public void ChangeState(MonsterState newstate) // 디버깅, 유지보수에 유리함
     {
         monsterstate = newstate;
+    }
+    
+    public void TakeDamage(float damage)
+    {
+        currentHp -= damage;
+        hpBar.fillAmount = currentHp / maxHp;
+        
+        monster_Ani.SetTrigger("Hit");
+        
+        if (currentHp <= 0f)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        isDead = true;
+        monster_Ani.SetTrigger("Death");
+        monster_Coll.enabled = false;
+        monster_Rb.gravityScale = 0;
+        
+        itemManager.DropItem(transform.position);
+
+        int itemCount = Random.Range(1, 3); // 아이템 드롭 갯수 
+        for (int i = 0; i < itemCount; i++)
+        {
+            itemManager.DropItem(transform.position);
+        }
     }
 }

@@ -7,6 +7,6 @@ public interface IItemObject
     string ItemName { get; set; }
     Sprite Icon { get; set; }
 
-    void get();
+    void Get();
     void Use();
 }

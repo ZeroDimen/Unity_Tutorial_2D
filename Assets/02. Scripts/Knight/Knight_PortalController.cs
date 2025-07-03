@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Knight_PortalController : MonoBehaviour
 {
+    public enum SceneType {Town , Adventure}
+    public SceneType scene;
     public Cat_UIFade fade;
     public GameObject portalEffect;
     public GameObject loadingImage;
@@ -34,6 +36,14 @@ public class Knight_PortalController : MonoBehaviour
             progressBar.fillAmount += ranValue;
             yield return null;
         }
-        SceneManager.LoadScene(1);
+
+        if (scene == SceneType.Town)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else if (scene == SceneType.Adventure)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
